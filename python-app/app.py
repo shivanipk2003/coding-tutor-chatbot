@@ -114,6 +114,9 @@ SUGGESTED_PROMPTS = {
 @st.cache_resource
 def get_groq_client():
     api_key = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+    if not api_key:
+        st.error("⚠️ GROQ_API_KEY is not set. Go to Manage app → Settings → Secrets and add your key.")
+        st.stop()
     return Groq(api_key=api_key)
 
 
